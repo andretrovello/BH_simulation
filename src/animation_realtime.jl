@@ -21,6 +21,7 @@ function main()
         
         sleep(0.01) # Pequena pausa para nossos olhos acompanharem
     end
+    
 end
 
 main()
