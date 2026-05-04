@@ -1,28 +1,37 @@
-using DifferentialEquations, Plots
+using Plots
 
-# 1. Defina suas funções lógicas separadamente
 function calcular_posicao(s0, v0, t)
     return s0 + v0 * t
 end
 
-# 2. Crie a função principal para controlar o fluxo
 function main()
-    # Definindo constantes locais (muito mais rápido que globais)
     s0 = 1.0
     v0 = 1.0
     t_final = 10
+
+    # Definindo os tipos dos vetores (melhor performance)
+    time = Float64[]
+    position = Float64[]
     
     println("--- Iniciando Simulação ---")
     
-    # O loop agora não precisa da palavra 'global'
     for t in 0:t_final
         pos = calcular_posicao(s0, v0, t)
-        println("Tempo: $t s | Posição: $pos m")
+        push!(time, Float64(t))
+        push!(position, pos)
     end
     
+    # Criamos o gráfico. Note que tirei o '!' para ser o gráfico principal.
+    p = plot(time, position, 
+            seriestype=:scatter, 
+            title="Movimento Linear",
+            xlabel="Tempo (s)", 
+            ylabel="Posição (m)",
+            label="Dados da Simulação",
+            marker=:circle)
+             
+    display(p) # Garante que o gráfico apareça no VS Code
     println("--- Simulação Finalizada ---")
 end
 
-# 3. Chame a função para executar
 main()
-
