@@ -21,11 +21,11 @@ end
 # Calculate Gravitational Force
 function Gforce(G, star, planet)
     r_vector = star.position - planet.position
-    r_unit = norm(r_vector)
+    r_norm = norm(r_vector)
     
     # Gravitational Force in vector format
-    # F = G*M*m * r_vec / r_unit^3
-    force = (G * star.mass * planet.mass) * r_vector / (r_unit^3)
+    # F = G*M*m * r_vec / r_norm^3
+    force = (G * star.mass * planet.mass) * r_vector / (r_norm^3)
     return force
 end
 
@@ -64,13 +64,13 @@ function main()
     planet_pos = Observable(Point2f(planet.position))
 
     # Draws bodies on screen
-    scatter!(ax, star_pos, color = :orange, markersize = 40, label = "Estrela")
-    scatter!(ax, planet_pos, color = :blue, markersize = 15, label = "Planeta")
+    scatter!(ax, star_pos, color = :orange, markersize = 40, label = "Star")
+    scatter!(ax, planet_pos, color = :blue, markersize = 15, label = "Planet")
     
     display(fig)
 
     # Simulation loop beginning
-    println("Simulação rodando... Feche a janela para parar.")
+    println("Running Simulation... Close window to stop.")
 
     while true
         atualizar_fisica!(planet,star,G,dt) # Update physics
